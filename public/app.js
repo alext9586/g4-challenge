@@ -2,8 +2,8 @@ const EtlTableUpload = document.querySelector('.etl_table_1')
 
 EtlTableUpload.addEventListener('submit', (e) => {
     e.preventDefault()
-    const etl_table_1 = EtlTableUpload.querySelector('.etl_1_input').value
-    post('/uploadEtl1', { etl_table_1 })
+    const data = EtlTableUpload.querySelector('.etl_1_input').value
+    post('/uploadEtl1', { data })
 })
 
 function post (path, data) {
