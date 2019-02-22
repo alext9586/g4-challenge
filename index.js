@@ -9,8 +9,7 @@ app.use(bodyParser.json())
 app.post('/uploadEtl1', (req, res) => {
   store
 		.uploadEtl1({data: req.body.data})
-		
-	res.sendStatus(200)
+		.then(() => res.sendStatus(200))
 })
 
 // app.post('/createUser', (req, res) => {
