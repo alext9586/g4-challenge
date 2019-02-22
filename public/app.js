@@ -1,9 +1,16 @@
-const EtlTableUpload = document.querySelector('.etl_table_1')
+const EtlTable1Upload = document.querySelector('.etl_table_1')
+const EtlTable2Upload = document.querySelector('.etl_table_2')
 
-EtlTableUpload.addEventListener('submit', (e) => {
+EtlTable1Upload.addEventListener('submit', (e) => {
     e.preventDefault()
-    const data = EtlTableUpload.querySelector('.etl_1_input').value
+    const data = EtlTable1Upload.querySelector('.etl_1_input').value
     post('/uploadEtl1', { data })
+})
+
+EtlTable2Upload.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const data = EtlTable2Upload.querySelector('.etl_2_input').value
+    post('/uploadEtl2', { data })
 })
 
 function post (path, data) {

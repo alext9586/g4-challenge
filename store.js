@@ -17,7 +17,24 @@ module.exports = {
         ip: words[6]
       }
     })
-    console.log(tableData)
     return knex('etl_table_1').insert(tableData)
+  },
+  uploadEtl2({data}) {    
+    let lines = data.split(/\r?\n/).filter(i => i)
+    let tableData = lines.map(line => {
+      let words = line.split(',')
+      let tempDateTime = new Date(words[0])
+
+      return {
+        created_at: tempDateTime.toISOString(),
+        ip: words[1],
+        latitude: parseFloat(words[2]),
+        longitude: parseFloat(words[3]),
+        first_name: words[4],
+        last_name: words[5],
+        email: words[6]
+      }
+    })
+    return knex('etl_table_2').insert(tableData)
   }
 }
