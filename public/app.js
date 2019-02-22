@@ -1,5 +1,6 @@
 const EtlTable1Upload = document.querySelector('.etl_table_1')
 const EtlTable2Upload = document.querySelector('.etl_table_2')
+const CustomersTableUpload = document.querySelector('.ws_customer_table')
 
 EtlTable1Upload.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -11,6 +12,12 @@ EtlTable2Upload.addEventListener('submit', (e) => {
     e.preventDefault()
     const data = EtlTable2Upload.querySelector('.etl_2_input').value
     post('/uploadEtl2', { data })
+})
+
+CustomersTableUpload.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const data = CustomersTableUpload.querySelector('.ws_customer_table_input').value
+    post('/uploadCustomersTable', { data })
 })
 
 function post (path, data) {

@@ -18,6 +18,12 @@ app.post('/uploadEtl2', (req, res) => {
 		.then(() => res.sendStatus(200))
 })
 
+app.post('/uploadCustomersTable', (req, res) => {
+  store
+		.uploadCustomersTable({data: req.body.data})
+		.then(() => res.sendStatus(200))
+})
+
 app.listen(7555, () => {
   console.log('Server running on http://localhost:7555')
 })

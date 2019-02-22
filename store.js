@@ -36,5 +36,23 @@ module.exports = {
       }
     })
     return knex('etl_table_2').insert(tableData)
+  },
+  uploadCustomersTable({data}) {    
+    let lines = data.split(/\r?\n/).filter(i => i)
+    let tableData = lines.map(line => {
+      let words = line.split(',')
+      let tempDateTime = new Date(words[6])
+
+      return {
+        email: words[0],
+        first_name: words[1],
+        last_name: words[2],
+        ip: words[3],
+        latitude: parseFloat(words[4]),
+        longitude: parseFloat(words[5]),
+        created_at: tempDateTime.toISOString()
+      }
+    })
+    return knex('customers').insert(tableData)
   }
 }

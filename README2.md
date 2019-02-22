@@ -7,7 +7,7 @@
 In MySql:
 `create database g4_challenge;`
 
-In BASH:
+In BASH (to create the tables):
 `knex migrate:latest`
 
 # Run application
