@@ -57,5 +57,17 @@ module.exports = {
   },
   getAllCustomers() {
     return knex('customers').select()
+  },
+  addCustomer({data}) {
+    let formattedData = {
+      email: data.email,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      ip: data.ip,
+      latitude: parseFloat(data.latitude),
+      longitude: parseFloat(data.longitude),
+      created_at: new Date()
+    }
+    return knex('customers').insert(formattedData)
   }
 }

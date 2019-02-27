@@ -23,7 +23,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <h1>Customers Table</h1>
         <CustomerTable customers={this.state.customers} />
         <CustomerForm />

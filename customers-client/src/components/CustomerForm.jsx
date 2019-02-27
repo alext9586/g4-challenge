@@ -12,7 +12,7 @@ class CustomerForm extends Component {
       ip: "",
       latitude: null,
       longitude: null,
-      created_at: new Date(),
+      created_at: null,
       updated_at: null
     };
 
@@ -31,8 +31,12 @@ class CustomerForm extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
     event.preventDefault();
+    fetch('http://localhost:7555/customers/addCustomer', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.state)
+    });
   }
 
   render() {
