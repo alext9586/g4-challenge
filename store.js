@@ -54,5 +54,8 @@ module.exports = {
       }
     })
     return knex('customers').insert(tableData)
+  },
+  getAllCustomers() {
+    return knex('customers').select()
   }
 }

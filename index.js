@@ -1,10 +1,12 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const store = require('./store')
 
 const customersApi = require('./customers')
 
 const app = express()
+app.use(cors())
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
