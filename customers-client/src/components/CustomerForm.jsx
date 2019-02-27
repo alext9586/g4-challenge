@@ -17,6 +17,7 @@ class CustomerForm extends Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,6 +29,11 @@ class CustomerForm extends Component {
     this.setState({
       [name]: value
     });
+  }
+
+  handleCancel(event) {
+    event.preventDefault();
+    this.props.cancelClick();
   }
 
   handleSubmit(event) {
@@ -82,7 +88,16 @@ class CustomerForm extends Component {
           </label>
         </div>
 
-        <input type="submit" value="Save"/>
+        <input
+          type="button"
+          className="btn btn-danger"
+          onClick={this.handleCancel}
+          value="Cancel"/>
+
+        <input
+          type="submit"
+          className="btn btn-primary"
+          value="Save"/>
       </form>
     );
   }
@@ -90,7 +105,8 @@ class CustomerForm extends Component {
 
 CustomerForm.propTypes = {
   customer: PropTypes.object,
-  save: PropTypes.func.isRequired
+  saveClick: PropTypes.func.isRequired,
+  cancelClick: PropTypes.func.isRequired
 }
 
 export default CustomerForm;
