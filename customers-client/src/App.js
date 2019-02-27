@@ -9,6 +9,8 @@ class App extends Component {
     this.state = {
       customers: []
     };
+
+    this.addCustomer = this.addCustomer.bind(this);
   }
 
   componentDidMount() {
@@ -21,12 +23,20 @@ class App extends Component {
       });
   }
 
+  addCustomer(customer) {
+    fetch('http://localhost:7555/customers/addCustomer', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(customer)
+    });
+  }
+
   render() {
     return (
       <div className="App container">
         <h1>Customers Table</h1>
         <CustomerTable customers={this.state.customers} />
-        <CustomerForm />
+        <CustomerForm save={this.addCustomer} />
       </div>
     );
   }

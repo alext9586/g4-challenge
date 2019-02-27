@@ -32,11 +32,7 @@ class CustomerForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch('http://localhost:7555/customers/addCustomer', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state)
-    });
+    this.props.save(this.state);
   }
 
   render() {
@@ -93,7 +89,8 @@ class CustomerForm extends Component {
 }
 
 CustomerForm.propTypes = {
-  customer: PropTypes.object
+  customer: PropTypes.object,
+  save: PropTypes.func.isRequired
 }
 
 export default CustomerForm;
