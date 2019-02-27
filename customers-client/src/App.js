@@ -10,17 +10,23 @@ class App extends Component {
       customers: []
     };
 
+    this.getAllCustomers = this.getAllCustomers.bind(this);
     this.addCustomer = this.addCustomer.bind(this);
+    this.deleteCustomer = this.deleteCustomer.bind(this);
+  }
+
+  getAllCustomers() {
+    fetch('http://localhost:7555/customers/all')
+    .then(results => {
+      return results.json();
+    }).then(data => {
+      console.log(data);
+      this.setState({customers: data});
+    });
   }
 
   componentDidMount() {
-    fetch('http://localhost:7555/customers/all')
-      .then(results => {
-        return results.json();
-      }).then(data => {
-        console.log(data);
-        this.setState({customers: data});
-      });
+    this.getAllCustomers();
   }
 
   addCustomer(customer) {
@@ -28,6 +34,18 @@ class App extends Component {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(customer)
+    }).then(()=>{
+      this.getAllCustomers();
+    });
+  }
+
+  deleteCustomer(customerId) {
+    fetch('http://localhost:7555/customers/deleteCustomer', {
+      method: 'delete',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({customerId: customerId})
+    }).then(()=>{
+      this.getAllCustomers();
     });
   }
 
@@ -35,7 +53,10 @@ class App extends Component {
     return (
       <div className="App container">
         <h1>Customers Table</h1>
-        <CustomerTable customers={this.state.customers} />
+        <CustomerTable
+          customers={this.state.customers}
+          deleteCustomer={this.deleteCustomer}
+          />
         <CustomerForm save={this.addCustomer} />
       </div>
     );

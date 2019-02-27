@@ -69,5 +69,8 @@ module.exports = {
       created_at: new Date()
     }
     return knex('customers').insert(formattedData)
+  },
+  deleteCustomer({customerId}) {
+   return knex('customers').where('id', customerId).del()
   }
 }

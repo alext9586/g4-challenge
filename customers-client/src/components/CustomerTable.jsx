@@ -5,6 +5,17 @@ class CustomerTable extends Component {
   generateRow(customer) {
     return (
       <tr key={customer.id}>
+        <td>
+          <input
+            type="button"
+            className="btn btn-warning btn-sm btn-block"
+            value="Edit"/>
+          <input
+            type="button"
+            className="btn btn-danger btn-sm btn-block"
+            onClick={e => this.props.deleteCustomer(customer.id)}
+            value="Delete"/>
+        </td>
         <td>{customer.email}</td>
         <td>{customer.first_name}</td>
         <td>{customer.last_name}</td>
@@ -27,6 +38,7 @@ class CustomerTable extends Component {
       <table className="table">
         <thead>
           <tr>
+            <th></th>
             <th>Email</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -44,7 +56,8 @@ class CustomerTable extends Component {
 }
 
 CustomerTable.propTypes = {
-  customers: PropTypes.array
+  customers: PropTypes.array,
+  deleteCustomer: PropTypes.func.isRequired
 }
 
 export default CustomerTable;

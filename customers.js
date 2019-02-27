@@ -10,4 +10,8 @@ router.post('/addCustomer', (req, res, next) => {
     store.addCustomer({data: req.body}).then(res.sendStatus(200))
 })
 
+router.delete('/deleteCustomer', (req, res, next) => {
+    store.deleteCustomer({customerId: req.body.customerId}).then(res.sendStatus(200))
+})
+
 module.exports = router
