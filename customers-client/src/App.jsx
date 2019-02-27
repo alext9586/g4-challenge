@@ -20,18 +20,27 @@ class App extends Component {
 
     this.getAllCustomers = this.getAllCustomers.bind(this);
     this.addCustomer = this.addCustomer.bind(this);
+    this.updateCustomer = this.updateCustomer.bind(this);
     this.editCustomer = this.editCustomer.bind(this);
     this.deleteCustomer = this.deleteCustomer.bind(this);
+    this.commitChanges = this.commitChanges.bind(this);
   }
 
   getAllCustomers() {
     fetch('http://localhost:7555/customers/all')
-    .then(results => {
-      return results.json();
-    }).then(data => {
-      console.log(data);
-      store.dispatch(actions.viewTable(data));
-    });
+      .then(results => {
+        return results.json();
+      }).then(data => {
+        console.log(data);
+        store.dispatch(actions.viewTable(data));
+      });
+  }
+
+  commitChanges() {
+    store.dispatch(actions.loading());
+    setTimeout(()=>{
+      this.getAllCustomers();      
+    }, 500);
   }
 
   componentDidMount() {
@@ -44,17 +53,17 @@ class App extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(customer)
     }).then(()=>{
-      this.getAllCustomers();
+      this.commitChanges();
     });
   }
 
   updateCustomer(customer) {
     fetch('http://localhost:7555/customers/updateCustomer', {
-      method: 'post',
+      method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(customer)
     }).then(()=>{
-      this.getAllCustomers();
+      this.commitChanges();
     });
   }
 
@@ -68,7 +77,7 @@ class App extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({customerId: customerId})
     }).then(()=>{
-      this.getAllCustomers();
+      this.commitChanges();
     });
   }
 
@@ -78,7 +87,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App container">
-          {stage === reducers.STAGE_START ? (
+          {stage === reducers.STAGE_LOADING ? (
             <h1>Loading...</h1>
           ) : null }
 
@@ -101,12 +110,21 @@ class App extends Component {
             </div>
           ) : null }
 
-          {(stage === reducers.STAGE_ADD_CUSTOMER) || (stage === reducers.STAGE_EDIT_CUSTOMER) ? (
+          {stage === reducers.STAGE_ADD_CUSTOMER ? (
             <div>
-              <h1>Customers Table</h1>
+              <h1>Add Customer</h1>
+              <CustomerForm
+                saveClick={this.addCustomer}
+                cancelClick={this.getAllCustomers}/>
+            </div>
+          ) : null }
+
+          {stage === reducers.STAGE_EDIT_CUSTOMER ? (
+            <div>
+              <h1>Edit Customer</h1>
               <CustomerForm
                 customer={selectedCustomer}
-                saveClick={this.addCustomer}
+                saveClick={this.updateCustomer}
                 cancelClick={this.getAllCustomers}/>
             </div>
           ) : null }

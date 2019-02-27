@@ -56,7 +56,7 @@ class CustomerForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.save(this.state);
+    this.props.saveClick(this.state);
   }
 
   render() {

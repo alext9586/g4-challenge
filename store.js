@@ -59,6 +59,7 @@ module.exports = {
     return knex('customers').select()
   },
   addCustomer({data}) {
+    const currentTime = new Date()
     let formattedData = {
       email: data.email,
       first_name: data.first_name,
@@ -66,9 +67,24 @@ module.exports = {
       ip: data.ip,
       latitude: parseFloat(data.latitude),
       longitude: parseFloat(data.longitude),
-      created_at: new Date()
+      created_at: currentTime.toISOString()
     }
     return knex('customers').insert(formattedData)
+  },
+  updateCustomer({data}) {
+    const currentTime = new Date()
+
+    return knex('customers').where('id', data.id).update(
+      {
+        email: data.email,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        ip: data.ip,
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
+        updated_at: currentTime.toISOString()
+      }
+    )
   },
   deleteCustomer({customerId}) {
    return knex('customers').where('id', customerId).del()

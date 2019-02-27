@@ -1,19 +1,20 @@
 import * as actions from "../actions";
 
-export const STAGE_START = 0;
+export const STAGE_LOADING = 0;
 export const STAGE_VIEW_TABLE = 1;
 export const STAGE_ADD_CUSTOMER = 2;
 export const STAGE_EDIT_CUSTOMER = 3;
+export const STAGE_COMMIT_CHANGES = 4;
 
 const initialState = {
-  stage: STAGE_START,
+  stage: STAGE_LOADING,
   customers: [],
   selectedCustomer: null
 }
 
 export function customerApp(state = initialState, action) {
   switch(action.type) {
-    case actions.START:
+    case actions.LOADING:
       return Object.assign({}, initialState);
 
     case actions.VIEW_TABLE:
