@@ -9,11 +9,12 @@ class CustomerTable extends Component {
           <input
             type="button"
             className="btn btn-warning btn-sm btn-block"
+            onClick={e => this.props.editCustomerClick(customer)}
             value="Edit"/>
           <input
             type="button"
             className="btn btn-danger btn-sm btn-block"
-            onClick={e => this.props.deleteCustomer(customer.id)}
+            onClick={e => this.props.deleteCustomerClick(customer.id)}
             value="Delete"/>
         </td>
         <td>{customer.email}</td>
@@ -57,7 +58,8 @@ class CustomerTable extends Component {
 
 CustomerTable.propTypes = {
   customers: PropTypes.array,
-  deleteCustomer: PropTypes.func.isRequired
+  editCustomerClick: PropTypes.func.isRequired,
+  deleteCustomerClick: PropTypes.func.isRequired
 }
 
 export default CustomerTable;

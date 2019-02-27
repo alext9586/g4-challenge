@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 class CustomerForm extends Component {
   constructor(props) {
     super(props);
-    this.state = props.customer || {
+    this.state = {
       id: null,
       email: "",
       first_name: "",
@@ -19,6 +19,24 @@ class CustomerForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { customer } = this.props;
+
+    if(customer) {
+      this.setState({
+        id: customer.id,
+        email: customer.email,
+        first_name: customer.first_name,
+        last_name: customer.last_name,
+        ip: customer.ip,
+        latitude: customer.latitude,
+        longitude: customer.longitude,
+        created_at: customer.created_at,
+        updated_at: customer.updated_at
+      })
+    }
   }
 
   handleInputChange(event) {

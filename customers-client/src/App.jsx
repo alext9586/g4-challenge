@@ -19,7 +19,8 @@ class App extends Component {
     });
 
     this.getAllCustomers = this.getAllCustomers.bind(this);
-    this.addCustomer = this.addCustomerSave.bind(this);
+    this.addCustomer = this.addCustomer.bind(this);
+    this.editCustomer = this.editCustomer.bind(this);
     this.deleteCustomer = this.deleteCustomer.bind(this);
   }
 
@@ -37,7 +38,7 @@ class App extends Component {
     this.getAllCustomers();
   }
 
-  addCustomerSave(customer) {
+  addCustomer(customer) {
     fetch('http://localhost:7555/customers/addCustomer', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -45,6 +46,20 @@ class App extends Component {
     }).then(()=>{
       this.getAllCustomers();
     });
+  }
+
+  updateCustomer(customer) {
+    fetch('http://localhost:7555/customers/updateCustomer', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(customer)
+    }).then(()=>{
+      this.getAllCustomers();
+    });
+  }
+
+  editCustomer(selectedCustomer) {
+    store.dispatch(actions.viewEditCustomer(selectedCustomer));
   }
 
   deleteCustomer(customerId) {
@@ -58,7 +73,7 @@ class App extends Component {
   }
 
   render() {
-    const { stage } = this.state;
+    const { stage, customers, selectedCustomer } = this.state;
 
     return (
       <Provider store={store}>
@@ -79,17 +94,19 @@ class App extends Component {
               </div>
               
               <CustomerTable
-                customers={this.state.customers}
-                deleteCustomer={this.deleteCustomer}
+                customers={customers}
+                editCustomerClick={this.editCustomer}
+                deleteCustomerClick={this.deleteCustomer}
                 />
             </div>
           ) : null }
 
-          {stage === reducers.STAGE_ADD_CUSTOMER ? (
+          {(stage === reducers.STAGE_ADD_CUSTOMER) || (stage === reducers.STAGE_EDIT_CUSTOMER) ? (
             <div>
               <h1>Customers Table</h1>
               <CustomerForm
-                saveClick={this.addCustomerSave}
+                customer={selectedCustomer}
+                saveClick={this.addCustomer}
                 cancelClick={this.getAllCustomers}/>
             </div>
           ) : null }
