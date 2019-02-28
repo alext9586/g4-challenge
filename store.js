@@ -87,6 +87,38 @@ module.exports = {
     )
   },
   deleteCustomer({customerId}) {
-   return knex('customers').where('id', customerId).del()
+    return knex('customers').where('id', customerId).del()
+  },
+  searchCustomer({data}) {
+    const formattedData = {}
+
+    if(data.email) {
+      formattedData.email = data.email
+    }
+
+    if(data.first_name) {
+      formattedData.first_name = data.first_name
+    }
+
+    if(data.last_name) {
+      formattedData.last_name = data.last_name
+    }
+
+    if(data.ip) {
+      formattedData.ip = data.ip
+    }
+
+    if(data.latitude) {
+      formattedData.latitude = parseFloat(data.latitude)
+    }
+
+    if(data.longitude) {
+      formattedData.longitude = parseFloat(data.longitude)
+    }
+
+    console.log("data:", data)
+    console.log("formatted data:", formattedData)
+
+    return knex('customers').where(formattedData).select().debug()
   }
 }

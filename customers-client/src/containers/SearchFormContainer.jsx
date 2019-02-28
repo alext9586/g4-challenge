@@ -9,6 +9,7 @@ class SearchFormContainer extends Component {
     return(
       <div>
         <h1>Search Customer</h1>
+        <p>The search will perform a case-sensitive match on all fields that are not blank.</p>
         <CustomerForm
           saveClick={saveClick}
           cancelClick={cancelClick}/>

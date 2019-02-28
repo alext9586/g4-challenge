@@ -77,6 +77,16 @@ class App extends Component {
 
   searchCustomer(customer) {
     console.log(customer);
+    fetch('http://localhost:7555/customers/search', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(customer)
+    }).then(results => {
+      return results.json();
+    }).then(data => {
+      console.log(data);
+      //store.dispatch(actions.viewTable(data));
+    });
   }
 
   viewEditCustomer(selectedCustomer) {
