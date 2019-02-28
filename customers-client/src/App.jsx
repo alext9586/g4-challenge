@@ -6,6 +6,7 @@ import * as reducers from "./reducers";
 import CustomerTableContainer from "./containers/CustomerTableContainer";
 import AddCustomerContainer from "./containers/AddCustomerContainer";
 import EditCustomerContainer from "./containers/EditCustomerContainer";
+import SearchFormContainer from "./containers/SearchFormContainer";
 import './App.css';
 
 const store = createStore(reducers.customerApp);
@@ -22,8 +23,9 @@ class App extends Component {
     this.getAllCustomers = this.getAllCustomers.bind(this);
     this.addCustomer = this.addCustomer.bind(this);
     this.updateCustomer = this.updateCustomer.bind(this);
-    this.editCustomer = this.editCustomer.bind(this);
+    this.editCustomer = this.viewEditCustomer.bind(this);
     this.deleteCustomer = this.deleteCustomer.bind(this);
+    this.searchCustomer = this.searchCustomer.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
     this.discardChanges = this.discardChanges.bind(this);
   }
@@ -73,7 +75,11 @@ class App extends Component {
     });
   }
 
-  editCustomer(selectedCustomer) {
+  searchCustomer(customer) {
+    console.log(customer);
+  }
+
+  viewEditCustomer(selectedCustomer) {
     store.dispatch(actions.viewEditCustomer(selectedCustomer));
   }
 
@@ -101,7 +107,8 @@ class App extends Component {
             <CustomerTableContainer
               customers={customers}
               addCustomerClick={s => store.dispatch(actions.viewAddCustomer())}
-              editCustomerClick={this.editCustomer}
+              searchClick={s => store.dispatch(actions.viewSearchCustomer())}
+              editCustomerClick={this.viewEditCustomer}
               deleteCustomerClick={this.deleteCustomer} />
           ) : null }
 
@@ -116,6 +123,12 @@ class App extends Component {
               selectedCustomer={selectedCustomer}
               saveClick={this.updateCustomer}
               cancelClick={this.discardChanges} />            
+          ) : null }
+
+          {stage === reducers.STAGE_SEARCH_CUSTOMER ? (
+            <SearchFormContainer
+              saveClick={this.searchCustomer}
+              cancelClick={this.discardChanges} />
           ) : null }
           
         </div>

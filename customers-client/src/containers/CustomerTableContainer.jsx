@@ -4,7 +4,7 @@ import CustomerTable from "../components/CustomerTable";
 
 class CustomerTableContainer extends Component {
   render() {
-    const { customers, addCustomerClick, editCustomerClick, deleteCustomerClick } = this.props;
+    const { customers, addCustomerClick, editCustomerClick, deleteCustomerClick, searchClick } = this.props;
 
     return (
       <div>
@@ -15,6 +15,11 @@ class CustomerTableContainer extends Component {
             className="btn btn-primary"
             onClick={addCustomerClick}
             value="Add Customer"/>
+          <input
+            type="button"
+            className="btn btn-secondary"
+            onClick={searchClick}
+            value="Search"/>
         </div>
         
         <CustomerTable
@@ -31,7 +36,8 @@ CustomerTableContainer.propTypes = {
   customers: PropTypes.array.isRequired,
   addCustomerClick: PropTypes.func.isRequired,
   editCustomerClick: PropTypes.func.isRequired,
-  deleteCustomerClick: PropTypes.func.isRequired
+  deleteCustomerClick: PropTypes.func.isRequired,
+  searchClick: PropTypes.func.isRequired
 };
 
 export default CustomerTableContainer;

@@ -115,7 +115,7 @@ class CustomerForm extends Component {
         <input
           type="submit"
           className="btn btn-primary"
-          value="Save"/>
+          value="Submit"/>
       </form>
     );
   }

@@ -2,6 +2,7 @@ export const LOADING = "LOADING";
 export const VIEW_TABLE = "VIEW_TABLE";
 export const VIEW_ADD_CUSTOMER = "ADD_CUSTOMER";
 export const VIEW_EDIT_CUSTOMER = "EDIT_CUSTOMER";
+export const VIEW_SEARCH_CUSTOMER = "VIEW_SEARCH_CUSTOMER";
 export const CANCEL = "CANCEL";
 
 export function loading() {
@@ -18,6 +19,10 @@ export function viewAddCustomer() {
 
 export function viewEditCustomer(selectedCustomer) {
   return { type: VIEW_EDIT_CUSTOMER, selectedCustomer: selectedCustomer };
+}
+
+export function viewSearchCustomer() {
+  return { type: VIEW_SEARCH_CUSTOMER };
 }
 
 export function cancel() {

@@ -5,6 +5,7 @@ export const STAGE_VIEW_TABLE = 1;
 export const STAGE_ADD_CUSTOMER = 2;
 export const STAGE_EDIT_CUSTOMER = 3;
 export const STAGE_COMMIT_CHANGES = 4;
+export const STAGE_SEARCH_CUSTOMER = 5;
 
 const initialState = {
   stage: STAGE_LOADING,
@@ -36,6 +37,12 @@ export function customerApp(state = initialState, action) {
       return Object.assign({}, state, {
         stage: STAGE_EDIT_CUSTOMER,
         selectedCustomer: selectedCustomer
+      });
+
+    case actions.VIEW_SEARCH_CUSTOMER:
+      return Object.assign({}, state, {
+        stage: STAGE_SEARCH_CUSTOMER,
+        selectedCustomer: null
       });
 
     case actions.CANCEL:
