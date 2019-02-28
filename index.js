@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const store = require('./store')
 
 const customersApi = require('./customers')
+const customersJson = require('./js/customers.json')
 
 const app = express()
 app.use(cors())
@@ -29,6 +30,10 @@ app.post('/uploadCustomersTable', (req, res) => {
 })
 
 app.use('/customers', customersApi)
+
+app.use('/customersJson', (req, res) => {
+	res.send(customersJson)
+})
 
 app.listen(7555, () => {
   console.log('Server running on http://localhost:7555')
