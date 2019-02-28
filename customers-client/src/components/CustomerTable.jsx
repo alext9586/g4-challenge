@@ -29,7 +29,7 @@ class CustomerTable extends Component {
     );
   }
 
-  render() {
+  generateTable() {
     const { customers } = this.props;    
     let rows = customers.map((customer) => {
       return this.generateRow(customer);
@@ -54,10 +54,15 @@ class CustomerTable extends Component {
       </table>
     );
   }
+
+  render() {
+    const hasCustomers = this.props.customers.length > 0;
+    return hasCustomers ? this.generateTable() : (<h2>No customers found</h2>);
+  }
 }
 
 CustomerTable.propTypes = {
-  customers: PropTypes.array,
+  customers: PropTypes.array.isRequired,
   editCustomerClick: PropTypes.func.isRequired,
   deleteCustomerClick: PropTypes.func.isRequired
 }

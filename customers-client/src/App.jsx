@@ -7,6 +7,7 @@ import CustomerTableContainer from "./containers/CustomerTableContainer";
 import AddCustomerContainer from "./containers/AddCustomerContainer";
 import EditCustomerContainer from "./containers/EditCustomerContainer";
 import SearchFormContainer from "./containers/SearchFormContainer";
+import SearchResultsContainer from "./containers/SearchResultsContainer";
 import './App.css';
 
 const store = createStore(reducers.customerApp);
@@ -85,7 +86,7 @@ class App extends Component {
       return results.json();
     }).then(data => {
       console.log(data);
-      //store.dispatch(actions.viewTable(data));
+      store.dispatch(actions.viewSearchResults(data));
     });
   }
 
@@ -139,6 +140,14 @@ class App extends Component {
             <SearchFormContainer
               saveClick={this.searchCustomer}
               cancelClick={this.discardChanges} />
+          ) : null }
+
+          {stage === reducers.STAGE_SEARCH_RESULTS ? (
+            <SearchResultsContainer
+              customers={customers}
+              backClick={this.getAllCustomers}
+              editCustomerClick={this.viewEditCustomer}
+              deleteCustomerClick={this.deleteCustomer} />
           ) : null }
           
         </div>

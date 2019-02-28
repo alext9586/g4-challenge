@@ -6,11 +6,13 @@ export const STAGE_ADD_CUSTOMER = 2;
 export const STAGE_EDIT_CUSTOMER = 3;
 export const STAGE_COMMIT_CHANGES = 4;
 export const STAGE_SEARCH_CUSTOMER = 5;
+export const STAGE_SEARCH_RESULTS = 6;
 
 const initialState = {
   stage: STAGE_LOADING,
   customers: [],
-  selectedCustomer: null
+  selectedCustomer: null,
+  cancelStage: STAGE_VIEW_TABLE
 }
 
 export function customerApp(state = initialState, action) {
@@ -23,7 +25,8 @@ export function customerApp(state = initialState, action) {
       return Object.assign({}, state, {
         stage: STAGE_VIEW_TABLE,
         customers: customers,
-        selectedCustomer: null
+        selectedCustomer: null,
+        cancelStage: STAGE_VIEW_TABLE
       });
 
     case actions.VIEW_ADD_CUSTOMER:
@@ -45,9 +48,19 @@ export function customerApp(state = initialState, action) {
         selectedCustomer: null
       });
 
+    case actions.VIEW_SEARCH_RESULTS:
+      const searchResults = action.searchResults;
+
+      return Object.assign({}, state, {
+        stage: STAGE_SEARCH_RESULTS,
+        customers: searchResults,
+        selectedCustomer: null,
+        cancelStage: STAGE_SEARCH_RESULTS
+      });
+
     case actions.CANCEL:
       return Object.assign({}, state, {
-        stage: STAGE_VIEW_TABLE,
+        stage: state.cancelStage,
         selectedCustomer: null
       });
 

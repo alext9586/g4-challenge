@@ -116,9 +116,6 @@ module.exports = {
       formattedData.longitude = parseFloat(data.longitude)
     }
 
-    console.log("data:", data)
-    console.log("formatted data:", formattedData)
-
     return knex('customers').where(formattedData).select().debug()
   }
 }
