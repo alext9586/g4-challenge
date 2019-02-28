@@ -8,10 +8,13 @@ class JsAppChallenge extends Component {
 
     this.state = {
       customers: [],
-      searchTerms: "",
+      results: [],
+      searchTerm: "",
       maxResults: 20
     }
 
+    this.resetResults = this.resetResults.bind(this);
+    this.performSearch = this.performSearch.bind(this);
     this.increaseSearchResults = this.increaseSearchResults.bind(this);
   }
 
@@ -24,8 +27,18 @@ class JsAppChallenge extends Component {
       .then(results => {
         return results.json();
       }).then(data => {
-        this.setState({customers: data});
+        this.setState({
+          customers: data,
+          results: data
+        });
       });
+  }
+
+  resetResults() {
+    this.setState({
+      searchTerm: "",
+      results: this.state.customers
+    })
   }
 
   increaseSearchResults() {
@@ -34,24 +47,35 @@ class JsAppChallenge extends Component {
     })
   }
 
+  performSearch(searchTerm) {
+    const words = searchTerm.split(' ');
+    
+    console.log(words);
+
+    this.setState({
+      searchTerm: searchTerm
+    });
+  }
+
   render() {
-    const { customers, searchTerms, maxResults } = this.state;
-    const truncatedData = customers.slice(0, maxResults);
+    const { results, searchTerms, maxResults } = this.state;
+    const truncatedData = results.slice(0, maxResults);
 
     return (
       <div className="App container">
         <h1>JS App Challenge</h1>
 
-        { customers.length > 0 ? (
+        { results.length > 0 ? (
           <div>
             <SearchBar
               searchTerms={searchTerms}
-              searchClick={(e) => { console.log(e) }} />
+              clearClick={this.resetResults}
+              searchClick={this.performSearch} />
 
             <CustomerTableReadOnly
               customers={truncatedData} />
 
-            { maxResults < customers.length ? 
+            { maxResults < results.length ? 
               <input
                 type="button"
                 className="btn btn-block btn-primary"
