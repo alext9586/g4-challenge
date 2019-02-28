@@ -9,7 +9,7 @@ class JsAppChallenge extends Component {
     this.state = {
       customers: [],
       results: [],
-      searchTerm: "",
+      searchTerms: "",
       maxResults: 20
     }
 
@@ -36,44 +36,64 @@ class JsAppChallenge extends Component {
 
   resetResults() {
     this.setState({
-      searchTerm: "",
-      results: this.state.customers
-    })
+      searchTerms: "",
+      results: this.state.customers,
+      maxResults: 20
+    });
   }
 
   increaseSearchResults() {
     this.setState({
       maxResults: this.state.maxResults + 20
-    })
+    });
   }
 
-  performSearch(searchTerm) {
-    const words = searchTerm.split(' ');
+  hasSearchTerms(searchWords, field) {
+    const lcSearchWords = searchWords.map(word => word.toLowerCase());
+    const lcField = field.toLowerCase();
     
-    console.log(words);
+    console.log(lcSearchWords)
+
+    return lcSearchWords.some(word => lcField.indexOf(word) >= 0);
+  }
+
+  performSearch(searchTerms) {
+    const results = this.state.customers.filter(customer => {
+      const customerLine =
+        `${customer.email} ${customer.first_name} ${customer.last_name}` +
+        `${customer.ip} ${customer.latitude} ${customer.longitude}`;
+      
+      return customerLine.toLowerCase().indexOf(searchTerms.toLowerCase()) >= 0;
+      //return this.hasSearchTerms(words, customerLine);
+    });
 
     this.setState({
-      searchTerm: searchTerm
+      searchTerms: searchTerms,
+      results: results
     });
   }
 
   render() {
-    const { results, searchTerms, maxResults } = this.state;
+    const { customers, results, searchTerms, maxResults } = this.state;
     const truncatedData = results.slice(0, maxResults);
 
     return (
       <div className="App container">
         <h1>JS App Challenge</h1>
 
-        { results.length > 0 ? (
+        { customers.length > 0 ? (
           <div>
             <SearchBar
               searchTerms={searchTerms}
               clearClick={this.resetResults}
               searchClick={this.performSearch} />
 
-            <CustomerTableReadOnly
-              customers={truncatedData} />
+            <h3>Results: {results.length}</h3>
+
+            { results.length > 0 ? (
+              <CustomerTableReadOnly
+                customers={truncatedData} />
+            ) : <h2>No Results</h2> }
 
             { maxResults < results.length ? 
               <input

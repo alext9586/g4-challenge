@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class CustomerTableReadOnly extends Component {
-  generateRow(customer) {
+  generateRow(customer, index) {
     return (
       <tr key={customer.id}>
+        <td>{index}</td>
         <td>{customer.email}</td>
         <td>{customer.first_name}</td>
         <td>{customer.last_name}</td>
@@ -19,14 +20,15 @@ class CustomerTableReadOnly extends Component {
 
   generateTable() {
     const { customers } = this.props;    
-    let rows = customers.map((customer) => {
-      return this.generateRow(customer);
+    let rows = customers.map((customer, index) => {
+      return this.generateRow(customer, index);
     });
 
     return(
       <table className="table">
         <thead>
           <tr>
+            <th></th>
             <th>Email</th>
             <th>First Name</th>
             <th>Last Name</th>

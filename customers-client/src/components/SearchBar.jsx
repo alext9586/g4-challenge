@@ -10,8 +10,8 @@ class SearchBar extends Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleClearClick = this.handleClearClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleClear = this.handleClear.bind(this);
   }
 
   componentDidMount() {
@@ -29,10 +29,11 @@ class SearchBar extends Component {
     });
   }
 
-  handleClear(event) {
-    event.preventDefault();
+  handleClearClick() {
     this.setState({
       searchTerms: ""
+    }, ()=>{
+      this.props.clearClick();
     })
   }
 
@@ -59,7 +60,7 @@ class SearchBar extends Component {
             <input
               type="button"
               className="btn btn-danger"
-              onClick={this.handleClear}
+              onClick={this.handleClearClick}
               value="Clear"/>
               
             <input
@@ -75,6 +76,7 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   searchTerms: PropTypes.string,
+  clearClick: PropTypes.func.isRequired,
   searchClick: PropTypes.func.isRequired
 };
 
