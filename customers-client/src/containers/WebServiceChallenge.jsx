@@ -108,7 +108,7 @@ class Challenge2 extends Component {
 
     return (
       <Provider store={store}>
-        <div className="App container">
+        <div className="container-fluid">
           {stage === reducers.STAGE_LOADING ? (
             <h1>Loading...</h1>
           ) : null }

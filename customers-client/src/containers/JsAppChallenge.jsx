@@ -68,7 +68,7 @@ class JsAppChallenge extends Component {
     const truncatedData = results.slice(0, maxResults);
 
     return (
-      <div className="App container">
+      <div className="container-fluid">
         <h1>JS App Challenge</h1>
 
         { customers.length > 0 ? (
