@@ -1,6 +1,7 @@
 # Install Packages
 
 `npm install`
+`cd customers-client && npm install`
 
 # Create Databases
 

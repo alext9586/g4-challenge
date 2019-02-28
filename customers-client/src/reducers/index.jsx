@@ -38,6 +38,12 @@ export function customerApp(state = initialState, action) {
         selectedCustomer: selectedCustomer
       });
 
+    case actions.CANCEL:
+      return Object.assign({}, state, {
+        stage: STAGE_VIEW_TABLE,
+        selectedCustomer: null
+      });
+
     default:
       return state;
   }

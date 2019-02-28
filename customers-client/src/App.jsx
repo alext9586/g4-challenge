@@ -3,8 +3,9 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import * as actions from "./actions";
 import * as reducers from "./reducers";
-import CustomerTable from "./components/CustomerTable";
-import CustomerForm from "./components/CustomerForm";
+import CustomerTableContainer from "./containers/CustomerTableContainer";
+import AddCustomerContainer from "./containers/AddCustomerContainer";
+import EditCustomerContainer from "./containers/EditCustomerContainer";
 import './App.css';
 
 const store = createStore(reducers.customerApp);
@@ -24,6 +25,7 @@ class App extends Component {
     this.editCustomer = this.editCustomer.bind(this);
     this.deleteCustomer = this.deleteCustomer.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
+    this.discardChanges = this.discardChanges.bind(this);
   }
 
   getAllCustomers() {
@@ -39,8 +41,12 @@ class App extends Component {
   commitChanges() {
     store.dispatch(actions.loading());
     setTimeout(()=>{
-      this.getAllCustomers();      
+      this.getAllCustomers();
     }, 500);
+  }
+
+  discardChanges() {
+    store.dispatch(actions.cancel());
   }
 
   componentDidMount() {
@@ -92,41 +98,24 @@ class App extends Component {
           ) : null }
 
           {stage === reducers.STAGE_VIEW_TABLE ? (
-            <div>
-              <h1>Customers Table</h1>
-              <div className="text-left">
-                <input
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={s => store.dispatch(actions.viewAddCustomer())}
-                  value="Add Customer"/>
-              </div>
-              
-              <CustomerTable
-                customers={customers}
-                editCustomerClick={this.editCustomer}
-                deleteCustomerClick={this.deleteCustomer}
-                />
-            </div>
+            <CustomerTableContainer
+              customers={customers}
+              addCustomerClick={s => store.dispatch(actions.viewAddCustomer())}
+              editCustomerClick={this.editCustomer}
+              deleteCustomerClick={this.deleteCustomer} />
           ) : null }
 
           {stage === reducers.STAGE_ADD_CUSTOMER ? (
-            <div>
-              <h1>Add Customer</h1>
-              <CustomerForm
-                saveClick={this.addCustomer}
-                cancelClick={this.getAllCustomers}/>
-            </div>
+            <AddCustomerContainer
+              saveClick={this.addCustomer}
+              cancelClick={this.discardChanges} />
           ) : null }
 
           {stage === reducers.STAGE_EDIT_CUSTOMER ? (
-            <div>
-              <h1>Edit Customer</h1>
-              <CustomerForm
-                customer={selectedCustomer}
-                saveClick={this.updateCustomer}
-                cancelClick={this.getAllCustomers}/>
-            </div>
+            <EditCustomerContainer
+              selectedCustomer={selectedCustomer}
+              saveClick={this.updateCustomer}
+              cancelClick={this.discardChanges} />            
           ) : null }
           
         </div>
