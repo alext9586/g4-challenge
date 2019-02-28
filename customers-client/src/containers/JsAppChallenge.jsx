@@ -48,15 +48,6 @@ class JsAppChallenge extends Component {
     });
   }
 
-  hasSearchTerms(searchWords, field) {
-    const lcSearchWords = searchWords.map(word => word.toLowerCase());
-    const lcField = field.toLowerCase();
-    
-    console.log(lcSearchWords)
-
-    return lcSearchWords.some(word => lcField.indexOf(word) >= 0);
-  }
-
   performSearch(searchTerms) {
     const results = this.state.customers.filter(customer => {
       const customerLine =
@@ -64,7 +55,6 @@ class JsAppChallenge extends Component {
         `${customer.ip} ${customer.latitude} ${customer.longitude}`;
       
       return customerLine.toLowerCase().indexOf(searchTerms.toLowerCase()) >= 0;
-      //return this.hasSearchTerms(words, customerLine);
     });
 
     this.setState({
