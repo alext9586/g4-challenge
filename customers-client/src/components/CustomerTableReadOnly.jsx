@@ -25,7 +25,7 @@ class CustomerTableReadOnly extends Component {
     });
 
     return(
-      <table className="table">
+      <table className="table table-dark table-striped">
         <thead>
           <tr>
             <th></th>

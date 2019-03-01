@@ -56,6 +56,10 @@ a:active, a:focus, a:hover {
   
 }
 
+.dashboard-navigation {
+  margin: 1em 0;
+}
+
 .dashboard-body {
   margin-bottom: 2em;
 }

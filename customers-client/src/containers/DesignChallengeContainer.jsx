@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../DesignChallengeStyles.css';
 
 class DesignChallengeContainer extends Component {
   componentDidMount() {
@@ -12,7 +11,9 @@ class DesignChallengeContainer extends Component {
         <div className="dashboard-header">
           <h1>John Doe</h1>
           <div className="dashboard-profileimage">
-            <h1><a href="/profile">💩</a></h1>
+            <h1>
+              <a href="/profile"><span role="img" aria-label="Profile Image">💩</span></a>
+            </h1>
           </div>
         </div>
 
