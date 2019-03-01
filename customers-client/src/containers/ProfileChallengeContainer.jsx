@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 
 class ProfileChallengeContainer extends Component {
   componentDidMount() {
-    document.title = "Profile - John Doe";
+    document.title = "Profile - Ally Gent";
   }
 
   render() {
     return(
       <div className="container-fluid">
         <div className="dashboard-header">
-          <h1>John Doe</h1>
+          <h1>Ally Gent</h1>
           <div className="dashboard-profileimage">
             <h1>
-              <a href="/profile"><span role="img" aria-label="Profile Image">💩</span></a>
+              <a href="/profile"><span role="img" aria-label="Profile Image">✈️</span></a>
             </h1>
           </div>
         </div>
@@ -23,8 +23,8 @@ class ProfileChallengeContainer extends Component {
           </div>
           
           <div className="col-6">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@email.com</p>
+            <h2>Ally Gent</h2>
+            <p>Email: ally.gent@email.com</p>
             <p>Phone: 123-123-1234</p>
             <p>Phone (Mobile): 123-123-9876</p>
             <p>Since: March 2015</p>

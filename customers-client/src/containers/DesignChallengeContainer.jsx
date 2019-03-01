@@ -9,10 +9,10 @@ class DesignChallengeContainer extends Component {
     return(
       <div className="container-fluid">
         <div className="dashboard-header">
-          <h1>John Doe</h1>
+          <h1>Ally Gent</h1>
           <div className="dashboard-profileimage">
             <h1>
-              <a href="/profile"><span role="img" aria-label="Profile Image">💩</span></a>
+              <a href="/profile"><span role="img" aria-label="Profile Image">✈️</span></a>
             </h1>
           </div>
         </div>

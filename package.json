@@ -4,6 +4,9 @@
   "description": "## Introduction",
   "main": "index.js",
   "scripts": {
+    "postinstall": "cd customers-client && npm install",
+    "client": "cd customers-client && npm start",
+    "server": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alex Tam",
