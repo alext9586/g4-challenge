@@ -19,6 +19,7 @@ class JsAppChallenge extends Component {
   }
 
   componentDidMount() {
+    document.title = "JS App Challenge";
     this.getAllCustomers();
   }
 

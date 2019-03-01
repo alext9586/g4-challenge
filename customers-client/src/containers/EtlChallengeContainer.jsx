@@ -14,6 +14,10 @@ class EtlChallengeContainer extends Component {
     this.etl2Submit = this.etl2Submit.bind(this);
   }
 
+  componentDidMount() {
+    document.title = "ETL Challenge";
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;

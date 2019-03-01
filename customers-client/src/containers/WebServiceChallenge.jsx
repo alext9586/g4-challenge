@@ -30,6 +30,11 @@ class Challenge2 extends Component {
     this.discardChanges = this.discardChanges.bind(this);
   }
 
+  componentDidMount() {
+    document.title = "Web Service Challenge";
+    this.getAllCustomers();
+  }
+
   getAllCustomers() {
     fetch('http://localhost:7555/customers/all')
       .then(results => {
@@ -49,10 +54,6 @@ class Challenge2 extends Component {
 
   discardChanges() {
     store.dispatch(actions.cancel());
-  }
-
-  componentDidMount() {
-    this.getAllCustomers();
   }
 
   addCustomer(customer) {

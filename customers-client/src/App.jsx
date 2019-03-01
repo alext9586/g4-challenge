@@ -4,8 +4,8 @@ import ChallengeHomeContainer from './containers/ChallengeHomeContainer';
 import EtlChallengeContainer from './containers/EtlChallengeContainer';
 import WebServiceChallenge from './containers/WebServiceChallenge';
 import JsAppChallenge from './containers/JsAppChallenge';
+import DesignChallengeContainer from './containers/DesignChallengeContainer';
 import './App.css';
-
 
 class App extends Component {
   render() {
@@ -17,6 +17,7 @@ class App extends Component {
           <Route path="/EtlChallenge/" component={EtlChallengeContainer} />
           <Route path="/JsAppChallenge/" component={JsAppChallenge} />
           <Route path="/WebServiceChallenge/" component={WebServiceChallenge} />
+          <Route path="/DesignChallenge/" component={DesignChallengeContainer} />
         </div>
       </Router>
     );
